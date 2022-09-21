@@ -26,4 +26,10 @@ async def pong(ctx):
 async def name(ctx):
     await ctx.send(ctx.author)
 
+@bot.command()
+async def d6(ctx):
+    import random
+    n = random.randint(1,6)
+    await ctx.send(n)
+
 bot.run(token)  # Starts the bot
