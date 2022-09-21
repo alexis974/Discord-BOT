@@ -32,4 +32,9 @@ async def d6(ctx):
     n = random.randint(1,6)
     await ctx.send(n)
 
+@bot.event
+async def on_message(ctx):
+    if ctx.content == "Salut tout le monde":
+        await ctx.reply("Salut tout seul")
+
 bot.run(token)  # Starts the bot
