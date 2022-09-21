@@ -96,8 +96,33 @@ async def count(ctx):
         if len(status) > 0:
             await ctx.send(f"{len(status)} member{plural} are {discord_status[i]}")
 
+
+import requests
 @bot.command()
 async def xkcd(ctx):
-    await ctx.send("Not implemented yet! We are working hard to bring you this feature asap")
+    url = "https://c.xkcd.com/random/comic/"
+    res = requests.get(url)
+    if res.status_code != 200:
+        await ctx.send("Could not fetch image")
+        return
+
+    await ctx.send(res.url)
+
+
+@bot.command()
+async def poll(ctx, arg = None):
+    if arg is None:
+        await ctx.send("You must specify a question")
+        return
+
+    #allowed_mentions = discord.AllowedMentions(everyone = True)
+    #await ctx.send(content = "@here", allowed_mentions = allowed_mentions)
+    await ctx.send("@here")
+
+    emoji_up = '\N{THUMBS UP SIGN}'
+    emoji_down = '\N{THUMBS DOWN SIGN}'
+    message = await ctx.send(arg)
+    await message.add_reaction(emoji_up)
+    await message.add_reaction(emoji_down)
 
 bot.run(token)  # Starts the bot
